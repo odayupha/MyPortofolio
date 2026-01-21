@@ -18,7 +18,7 @@ const Intro: React.FC<IntroProps> = ({ onEnter }) => {
         }
         return prev + 1; // Lebih lambat dari 2 menjadi 1
       });
-    }, 50); // Lebih lambat dari 30ms menjadi 50ms
+    }, 10); // Lebih lambat dari 30ms menjadi 50ms
 
     // Fade out and exit - lebih lama
     const fadeTimer = setTimeout(() => {

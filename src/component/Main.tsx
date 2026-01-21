@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React, { useState } from 'react';
 import Header from './Header';
 import Hero from './Hero';

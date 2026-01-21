@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React, { useEffect, useRef, useState } from 'react';
 import { GraduationCap, Briefcase, Target, Award } from 'lucide-react';
 

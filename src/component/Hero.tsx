@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import React, { useEffect, useState } from 'react';
 import { Mail, Linkedin } from 'lucide-react';
 
