@@ -18,16 +18,16 @@ const Intro: React.FC<IntroProps> = ({ onEnter }) => {
         }
         return prev + 1; // Lebih lambat dari 2 menjadi 1
       });
-    }, 10); // Lebih lambat dari 30ms menjadi 50ms
+    }, 50); // Lebih lambat dari 30ms menjadi 50ms
 
     // Fade out and exit - lebih lama
     const fadeTimer = setTimeout(() => {
       setFadeOut(true);
-    }, 5500); // Lebih lama dari 3200ms menjadi 5500ms
+    }, 1000); // Lebih lama dari 3200ms menjadi 5500ms
 
     const exitTimer = setTimeout(() => {
       onEnter();
-    }, 6200); // Lebih lama dari 3800ms menjadi 6200ms
+    }, 1000); // Lebih lama dari 3800ms menjadi 6200ms
 
     return () => {
       clearInterval(progressInterval);

@@ -70,9 +70,12 @@ const About = () => {
                   </div>
                   <h3 className="text-2xl font-bold text-white">Profile</h3>
                 </div>
-                <p className="text-gray-300 leading-relaxed mb-4">
-                Results-oriented Automation Engineering student with expertise in software development and robotics. Passionate about applying automation technology to enhance efficiency within the Oil & Gas and Renewable Energy industries. Combining technical skills in UI/UX and software engineering to develop intuitive, high-performance systems for complex industrial challenges.
-                </p>
+              <p className="text-gray-300 leading-relaxed mb-4 text-justify [hyphens:auto]">
+  Results-oriented <span className="text-white font-medium">Automation Engineering</span> student with expertise in software development and robotics. Passionate about applying automation technology to enhance efficiency within the 
+   Oil & Gas  and 
+   Renewable Energy 
+  industries. Combining technical skills in UI/UX and software engineering to develop intuitive, high-performance systems for complex industrial challenges.
+</p>
                 <p className="text-gray-300 leading-relaxed">
                   Beyond the technical field, I am also passionate about leadership and event organization, having 
                   actively contributed to planning and executing various academic and student activities.

@@ -53,9 +53,15 @@ const Hero = () => {
               </div>
 
               {/* Short Bio */}
-              <p className="text-lg text-gray-300 leading-relaxed max-w-2xl">
-                Automation Engineering student at Diponegoro University with a focus on integrating advanced robotics and software solutions for the energy sector. Proficient in UI/UX design and software engineering, with a dedicated interest in optimizing Renewable Energy systems and Oil & Gas operations. Proven hands-on experience in robotics development and a passion for driving industrial innovation through smart automation.
-              </p>
+           <p className="text-lg text-gray-300 leading-relaxed max-w-2xl text-justify [hyphens:auto]">
+  Automation Engineering student at Diponegoro University with a focus on integrating 
+  advanced robotics and software solutions. Proficient in UI/UX design and software engineering, 
+  with a dedicated interest in optimizing 
+  <span className="text-emerald-400 font-semibold transition-colors duration-300 hover:text-emerald-300"> Renewable Energy systems</span>, 
+  <span className="text-cyan-400 font-semibold transition-colors duration-300 hover:text-cyan-300"> Oil & Gas operations</span>, and 
+  <span className="text-indigo-400 font-semibold transition-colors duration-300 hover:text-indigo-300"> Robotics Technology</span>. 
+  Driven by a passion for industrial innovation through smart automation and sustainable technical solutions.
+</p>
 
               {/* Social Links */}
               <div className="flex gap-4 pt-4">
