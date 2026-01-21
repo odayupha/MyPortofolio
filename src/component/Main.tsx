@@ -7,7 +7,6 @@ import Portfolio from './Portofolio';
 import Achievement from './Achievement';
 import Skills from './newskill';
 import Certifications from './Certifications';
-import Contact from './Contact';
 import Footer from './Footer';
 import Intro from './Intro';
 
@@ -27,7 +26,6 @@ export default function App() {
           <Achievement />
           <Skills />
           <Certifications />
-          <Contact />
           <Footer />
         </div>
       )}
