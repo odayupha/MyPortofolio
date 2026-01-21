@@ -70,9 +70,7 @@ const About = () => {
                   <h3 className="text-2xl font-bold text-white">Profile</h3>
                 </div>
                 <p className="text-gray-300 leading-relaxed mb-4">
-                  I am an Automation Engineering student at Diponegoro University with a strong interest in technology, 
-                  design, and innovation. My expertise spans UI/UX design and software engineering, combined with 
-                  hands-on experience in robotics development as part of the Undip Robotics Development Center.
+                Results-oriented Automation Engineering student with expertise in software development and robotics. Passionate about applying automation technology to enhance efficiency within the Oil & Gas and Renewable Energy industries. Combining technical skills in UI/UX and software engineering to develop intuitive, high-performance systems for complex industrial challenges.
                 </p>
                 <p className="text-gray-300 leading-relaxed">
                   Beyond the technical field, I am also passionate about leadership and event organization, having 
