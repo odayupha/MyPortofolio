@@ -68,7 +68,7 @@ const Portfolio = () => {
       shortDesc: 'Developed SCADA application from scratch for monitoring systems using VB.NET and database integration',
       description: 'During my internship, I was responsible for developing a SCADA application from scratch as a final project. I built this application using Visual Studio with VB.NET programming language, aimed at monitoring systems. In the process, I successfully integrated the application with InfluxDB database for time-series data and PostgreSQL for relational data, and designed an intuitive interface. This project not only tested my technical capabilities but also provided direct experience in translating business needs into functional and stable software solutions.',
       image: '📊',
-      imageUrl: '/scada.jpeg',
+      imageUrl: '/scada.png',
       tech: ['Visual Basic .NET', 'InfluxDB', 'PostgreSQL', 'SCADA'],
       gradient: 'from-indigo-500 to-purple-500'
     },

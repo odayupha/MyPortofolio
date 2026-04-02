@@ -74,7 +74,7 @@ const Experience = () => {
       type: 'Internship',
       description: 'As a Software Engineer intern at PT. PERMALAT BERDIKARI JAYA, responsible for contributing to system and technology solution development projects. Focus was on UI/UX design, web development, and SCADA implementation.',
       skills: ['Software Development', 'Visual Basic', 'TypeScript', 'React.js', 'SCADA developer'],
-      image: '/scada.jpeg'
+      image: '/scada.png'
     },
     {
       period: 'Jul 2025 - Jul 2025',
