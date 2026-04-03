@@ -9,20 +9,18 @@ html, body, #root {
 }
 
 body {
-  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0f172a;
-  color: #e2e8f0;
+  background-color: #E6E2D3;
+  color: #2D3A27;
   overflow-x: hidden;
 }
 
-/* Prevent layout shift */
 * {
   box-sizing: border-box;
 }
 
-/* Custom utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;

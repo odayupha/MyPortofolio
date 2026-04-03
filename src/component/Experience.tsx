@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Briefcase, Calendar, MapPin, Award } from 'lucide-react';
+import { Calendar, MapPin } from 'lucide-react';
 
-interface Experience {
+interface ExperienceItem {
   period: string;
   role: string;
   organization: string;
@@ -14,28 +14,19 @@ interface Experience {
 
 const Experience = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setIsVisible(true); }); },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const experiences: Experience[] = [
+  const experiences: ExperienceItem[] = [
     {
       period: 'Feb 2025 - Present',
       role: 'Head of Research and Science',
@@ -89,110 +80,87 @@ const Experience = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="experience" className="py-24 bg-gradient-to-br from-slate-900 via-cyan-950 to-slate-900 relative overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-cyan-400/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-teal-400/10 rounded-full blur-3xl"></div>
-      </div>
+    <section ref={sectionRef} id="experience" className="py-20 lg:py-28 bg-sand relative overflow-hidden">
 
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }}></div>
-      </div>
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
           {/* Header */}
-          <div className={`mb-16 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
-            <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full mb-6">
-              <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-              <span className="text-gray-300 text-sm font-medium">Career Journey</span>
+          <div className={`mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-[3px] bg-orange" />
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
-              Professional <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300">Experience</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-forest tracking-tighter">
+              Professional <span className="font-serif italic text-orange">Experience</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-cyan-400 to-teal-400 rounded-full"></div>
           </div>
 
-          {/* Timeline */}
-          <div className="space-y-8">
+          {/* Experience List - Hover to reveal */}
+          <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {experiences.map((exp, index) => (
               <div
                 key={index}
-                className={`group relative transition-all duration-700 ${
-                  isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-                }`}
-                style={{ transitionDelay: `${index * 100}ms` }}
+                className="relative border-b-2 border-forest/15 last:border-b-0"
+                onMouseEnter={() => setHoveredIndex(index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
-                <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-cyan-400/50 transition-all hover:shadow-2xl hover:shadow-cyan-500/20">
-                  <div className="grid lg:grid-cols-[300px,1fr] gap-6">
-                    {/* Image Section */}
-                    <div className="relative h-64 lg:h-auto bg-gradient-to-br from-slate-800 to-slate-900">
-                      {exp.image ? (
-                        <img 
-                          src={exp.image} 
-                          alt={exp.organization}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Briefcase size={64} className="text-gray-600" />
-                        </div>
-                      )}
-                      {/* Type Badge on Image */}
-                      <div className="absolute top-4 left-4">
-                        <div className="bg-gradient-to-r from-cyan-500 to-teal-500 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-lg shadow-cyan-500/50">
-                          {exp.type}
-                        </div>
-                      </div>
-                    </div>
+                {/* Main Row - Always Visible */}
+                <div className={`py-8 flex items-start gap-5 cursor-default transition-all duration-200 px-6 -mx-6 ${
+                  hoveredIndex === index ? 'bg-paper border-l-4 border-l-orange pl-8' : ''
+                }`}>
+                  <span className="font-mono text-base font-bold text-forest/20 mt-1 w-8 flex-shrink-0">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`text-2xl md:text-3xl font-bold transition-colors duration-200 ${
+                      hoveredIndex === index ? 'text-orange' : 'text-forest'
+                    }`}>{exp.role}</h3>
+                    <p className="text-forest/50 text-base font-medium">{exp.organization}</p>
+                  </div>
+                  <div className="flex items-center gap-3 flex-shrink-0">
+                    <span className="font-mono text-xs text-forest/30 hidden md:block">{exp.period}</span>
+                    <span className="inline-block px-3 py-1 border-2 border-forest/20 font-mono text-xs font-bold text-forest/50 tracking-wider">{exp.type.toUpperCase()}</span>
+                  </div>
+                </div>
 
-                    {/* Content Section */}
-                    <div className="p-8">
-                      {/* Period */}
-                      <div className="flex items-center gap-2 text-sm text-gray-400 mb-3">
-                        <Calendar size={16} className="text-cyan-400" />
-                        <span>{exp.period}</span>
-                      </div>
+                {/* Hover Content - Slides in */}
+                <div className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  hoveredIndex === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+                }`}>
+                  <div className="pb-8 pl-6 md:pl-[3.5rem]">
+                    <div className="bg-paper border-2 border-forest shadow-hard-sm p-8">
+                      <div className="grid lg:grid-cols-[250px,1fr] gap-8">
+                        {/* Image */}
+                        {exp.image && (
+                          <div className="img-zoom-container border-2 border-forest overflow-hidden aspect-video lg:aspect-[4/3]">
+                            <img src={exp.image} alt={exp.organization} className="w-full h-full object-cover" />
+                          </div>
+                        )}
 
-                      {/* Role */}
-                      <h3 className="text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-teal-300 mb-3">
-                        {exp.role}
-                      </h3>
-
-                      {/* Organization */}
-                      <div className="flex items-start gap-2 text-white/90 font-semibold mb-2 text-lg">
-                        <Award size={20} className="mt-1 flex-shrink-0 text-cyan-400" />
-                        <span>{exp.organization}</span>
-                      </div>
-
-                      {/* Location */}
-                      <div className="flex items-center gap-2 text-gray-300 mb-4">
-                        <MapPin size={16} className="text-teal-400" />
-                        <span>{exp.location}</span>
-                      </div>
-
-                      {/* Description */}
-                      <p className="text-gray-300 leading-relaxed mb-6">
-                        {exp.description}
-                      </p>
-
-                      {/* Skills */}
-                      {exp.skills && exp.skills.length > 0 && (
-                        <div className="flex flex-wrap gap-2">
-                          {exp.skills.map((skill, idx) => (
-                            <span key={idx} className="px-3 py-1 bg-white/10 backdrop-blur-sm rounded-full text-xs text-gray-300 border border-white/20">
-                              {skill}
+                        {/* Details */}
+                        <div>
+                          <div className="flex items-center gap-4 text-forest/40 text-base mb-4 font-mono text-xs">
+                            <span className="flex items-center gap-1.5">
+                              <Calendar size={14} />
+                              {exp.period}
                             </span>
-                          ))}
+                            <span className="flex items-center gap-1.5">
+                              <MapPin size={14} />
+                              {exp.location}
+                            </span>
+                          </div>
+                          <p className="text-forest/60 leading-relaxed text-base mb-5">{exp.description}</p>
+                          {exp.skills && (
+                            <div className="flex flex-wrap gap-2">
+                              {exp.skills.map((skill, idx) => (
+                                <span key={idx} className="border-2 border-forest/20 text-forest/60 px-3 py-1.5 font-mono text-xs font-bold tracking-wider">
+                                  {skill.toUpperCase()}
+                                </span>
+                              ))}
+                            </div>
+                          )}
                         </div>
-                      )}
+                      </div>
                     </div>
                   </div>
                 </div>

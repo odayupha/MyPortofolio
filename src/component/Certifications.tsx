@@ -2,13 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Award, Calendar, MapPin, BookOpen, CheckCircle } from 'lucide-react';
 
 interface Certification {
-  title: string;
-  issuer: string;
-  date: string;
-  location: string;
-  description: string[];
-  image: string;
-  skills: string[];
+  title: string; issuer: string; date: string; location: string;
+  description: string[]; image: string; skills: string[];
 }
 
 const Certifications = () => {
@@ -17,20 +12,10 @@ const Certifications = () => {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setIsVisible(true); }); },
       { threshold: 0.1 }
     );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
@@ -51,131 +36,74 @@ const Certifications = () => {
   ];
 
   return (
-    <section ref={sectionRef} id="certifications" className="py-24 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 relative overflow-hidden">
-      {/* Subtle background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-20 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
-      </div>
-
-      {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
-        }}></div>
-      </div>
-
+    <section ref={sectionRef} id="certifications" className="py-20 lg:py-28 bg-sand relative overflow-hidden">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-6xl mx-auto">
-          {/* Header */}
-          <div className={`mb-16 transition-all duration-1000 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}>
-            <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-2 rounded-full mb-6">
-              <div className="w-2 h-2 bg-indigo-400 rounded-full"></div>
-              <span className="text-gray-300 text-sm font-medium">Professional Development</span>
+          <div className={`mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <div className="flex items-center gap-3 mb-4">
+              <span className="font-mono text-[10px] text-forest/40 tracking-[0.15em]"></span>
+              <div className="w-8 h-[3px] bg-orange" />
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Certifications</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-forest tracking-tighter">
+              <span className="font-serif italic text-orange">Certifications</span>
             </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-full"></div>
           </div>
 
-          {/* Certification Card */}
           {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className={`transition-all duration-1000 delay-200 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-              }`}
-            >
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 hover:border-indigo-500/50 transition-all">
-                {/* Certificate Image */}
-                <div className="relative h-80 bg-gradient-to-br from-slate-800 to-slate-900 overflow-hidden">
-                  {cert.image ? (
-                    <img 
-                      src={cert.image} 
-                      alt={cert.title}
-                      className="w-full h-full object-contain p-8"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="text-center">
-                        <Award size={64} className="text-gray-600 mx-auto mb-4" />
-                        <p className="text-gray-500">Certificate Image</p>
-                      </div>
-                    </div>
-                  )}
-                  
-                  {/* Badge */}
-                  <div className="absolute top-6 left-6">
-                    <div className="bg-gradient-to-r from-indigo-600 to-cyan-600 px-4 py-2 rounded-full text-white text-sm font-semibold shadow-lg shadow-indigo-500/50">
-                      Professional Certificate
-                    </div>
-                  </div>
+            <div key={index} className={`card-press bg-paper overflow-hidden transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'}`}>
+              <div className="relative h-64 img-zoom-container border-b-2 border-forest bg-sand">
+                {cert.image ? (
+                  <img src={cert.image} alt={cert.title} className="w-full h-full object-contain p-6" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center"><Award size={64} className="text-forest/20" /></div>
+                )}
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1.5 bg-forest text-sand font-mono text-[10px] font-bold tracking-wider">PROFESSIONAL CERT</span>
                 </div>
+                <div className="absolute bottom-3 right-3 font-mono text-[9px] text-forest/40">CERT_01</div>
+              </div>
 
-                {/* Content */}
-                <div className="p-8">
-                  <div className="grid lg:grid-cols-2 gap-8">
-                    {/* Left Column - Info */}
-                    <div>
-                      {/* Title */}
-                      <h3 className="text-2xl lg:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400 mb-4">
-                        {cert.title}
-                      </h3>
-
-                      {/* Issuer */}
-                      <div className="flex items-center gap-3 mb-6 pb-6 border-b border-white/10">
-                        <div className="w-12 h-12 bg-gradient-to-br from-indigo-600 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg">
-                          <Award size={24} className="text-white" />
-                        </div>
-                        <div>
-                          <div className="text-sm text-gray-400">Issued by</div>
-                          <div className="text-white font-bold text-lg">{cert.issuer}</div>
-                        </div>
+              <div className="p-8">
+                <div className="grid lg:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-xl lg:text-2xl font-bold text-forest mb-4">{cert.title}</h3>
+                    <div className="flex items-center gap-3 mb-6 pb-6 border-b-2 border-forest/10">
+                      <div className="w-10 h-10 bg-orange/10 border-2 border-orange/30 flex items-center justify-center">
+                        <Award size={20} className="text-orange" />
                       </div>
-
-                      {/* Info Grid */}
-                      <div className="space-y-4 mb-6">
-                        <div className="flex items-center gap-3 text-gray-300">
-                          <Calendar size={18} className="text-indigo-400" />
-                          <span>{cert.date}</span>
-                        </div>
-                        <div className="flex items-center gap-3 text-gray-300">
-                          <MapPin size={18} className="text-cyan-400" />
-                          <span>{cert.location}</span>
-                        </div>
-                      </div>
-
-                      {/* Skills */}
                       <div>
-                        <h4 className="text-sm font-bold text-gray-400 uppercase tracking-wider mb-3">Skills Acquired</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {cert.skills.map((skill, idx) => (
-                            <span key={idx} className="px-3 py-1.5 bg-white/10 backdrop-blur-sm rounded-lg text-sm text-white border border-white/20">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
+                        <div className="font-mono text-[9px] text-forest/40">ISSUED BY</div>
+                        <div className="text-forest font-bold">{cert.issuer}</div>
                       </div>
                     </div>
-
-                    {/* Right Column - Description */}
+                    <div className="space-y-2 mb-6">
+                      <div className="flex items-center gap-3 text-forest/50 font-mono text-[11px]">
+                        <Calendar size={14} className="text-orange" /><span>{cert.date}</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-forest/50 font-mono text-[11px]">
+                        <MapPin size={14} className="text-forest/30" /><span>{cert.location}</span>
+                      </div>
+                    </div>
                     <div>
-                      <h4 className="flex items-center gap-2 text-lg font-bold text-white mb-4">
-                        <BookOpen size={20} className="text-indigo-400" />
-                        Training Overview
-                      </h4>
-                      <div className="space-y-4">
-                        {cert.description.map((desc, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <CheckCircle size={18} className="text-indigo-400 flex-shrink-0 mt-1" />
-                            <p className="text-gray-300 leading-relaxed">{desc}</p>
-                          </div>
+                      <h4 className="font-mono text-[9px] text-forest/30 tracking-[0.15em] mb-3">SKILLS ACQUIRED</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {cert.skills.map((skill, idx) => (
+                          <span key={idx} className="px-3 py-1 border-2 border-forest/20 font-mono text-[10px] text-forest/60 font-bold tracking-wider">{skill.toUpperCase()}</span>
                         ))}
                       </div>
+                    </div>
+                  </div>
+                  <div>
+                    <h4 className="flex items-center gap-2 text-base font-bold text-forest mb-4">
+                      <BookOpen size={18} className="text-orange" />Training Overview
+                    </h4>
+                    <div className="space-y-4">
+                      {cert.description.map((desc, idx) => (
+                        <div key={idx} className="flex items-start gap-3">
+                          <CheckCircle size={14} className="text-orange flex-shrink-0 mt-0.5" />
+                          <p className="text-forest/60 text-sm leading-relaxed">{desc}</p>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
