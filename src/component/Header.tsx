@@ -64,7 +64,7 @@ const Header = () => {
               </svg>
             </div>
             <div>
-              <div className="font-bold text-lg text-forest tracking-tight leading-none">Odayakana<span className="font-serif italic ml-1">U.</span></div>
+              <div className="font-bold text-lg text-forest tracking-tight leading-none">Oday<span className="font-serif italic ml-1"></span></div>
             </div>
           </div>
 
