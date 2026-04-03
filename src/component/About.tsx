@@ -62,7 +62,7 @@ const About = () => {
                 <h4 className="text-lg font-bold text-forest mb-1">Diponegoro University</h4>
                 <p className="text-forest/60 text-sm">Bachelor of Applied Science</p>
                 <p className="text-forest/40 text-sm mb-3">Automation Engineering Technology</p>
-                <span className="inline-block bg-forest text-sand px-3 py-1 font-mono text-[10px] font-bold tracking-wider">SEMESTER 5</span>
+                <span className="inline-block bg-forest text-sand px-3 py-1 font-mono text-[10px] font-bold tracking-wider">SEMESTER 6</span>
               </div>
 
               <div className="bg-paper border-2 border-forest shadow-hard-sm p-6">
