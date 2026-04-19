@@ -83,20 +83,18 @@ const Hero = () => {
                   <div className="w-10 h-[3px] bg-orange" />
                 </div>
                 <h2 className="text-lg md:text-xl text-forest/70 font-semibold">
-                  Automation Engineering Student
+                  Automation Engineering
                 </h2>
               </div>
 
               {/* Bio */}
               <div ref={bioRef}>
                 <p className="text-base md:text-lg text-forest/65 leading-relaxed max-w-xl">
-                  Automation Engineering student at Diponegoro University with a focus on integrating
-                  advanced robotics and software solutions. Proficient in UI/UX design and software engineering,
-                  with a dedicated interest in optimizing
+                  Automating the Future of
                   <span className="text-forest font-bold"> Renewable Energy systems</span>,
                   <span className="text-forest font-bold"> Oil & Gas operations</span>, and
                   <span className="text-forest font-bold"> Robotics Technology</span>.
-                  Driven by a passion for industrial innovation through smart automation and sustainable technical solutions.
+
                 </p>
               </div>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Trophy, Star, Calendar, MapPin, Users } from 'lucide-react';
+import { MapPin, Users } from 'lucide-react';
 
 interface AchievementItem {
   year: string; title: string; organization: string; category: string;
@@ -9,26 +9,17 @@ interface AchievementItem {
 
 const Achievement = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [counters, setCounters] = useState({ awards: 0, competitions: 0 });
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setIsVisible(true); animateCounters(); } }); },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setIsVisible(true); }); },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const animateCounters = () => {
-    const duration = 2000; const steps = 60; let step = 0;
-    const timer = setInterval(() => {
-      step++;
-      setCounters({ awards: Math.floor(2 * step / steps), competitions: Math.floor(2 * step / steps) });
-      if (step >= steps) { clearInterval(timer); setCounters({ awards: 2, competitions: 2 }); }
-    }, duration / steps);
-  };
 
   const achievements: AchievementItem[] = [
     { year: '2024', title: 'Essay Competition - 2nd Place', organization: 'Universitas Diponegoro', category: 'Academic Competition', position: 'Silver Medalist', level: 'University Level', description: 'Achieved 2nd place in the Essay Competition at Diponegoro University, demonstrating strong analytical and writing skills on contemporary topics', badge: '🥈', location: 'Semarang, Indonesia', participants: '50+ Participants', image: '/essai.jpeg' },
@@ -91,19 +82,7 @@ const Achievement = () => {
             ))}
           </div>
 
-          {/* Stats */}
-          <div className={`grid sm:grid-cols-2 gap-0 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {[
-              { value: counters.awards, label: 'Academic Awards', ref: 'AW' },
-              { value: counters.competitions, label: 'Competitions', ref: 'CM' }
-            ].map((stat, i) => (
-              <div key={i} className={`bg-paper border-2 border-forest p-8 text-center card-press ${i === 0 ? 'border-r-0' : ''}`}>
-                <span className="font-mono text-[9px] text-forest/30 block mb-2">[{stat.ref}]</span>
-                <div className="text-4xl font-extrabold text-forest tracking-tighter mb-2">{stat.value}</div>
-                <div className="text-forest/40 font-mono text-[10px] tracking-wider">{stat.label.toUpperCase()}</div>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>

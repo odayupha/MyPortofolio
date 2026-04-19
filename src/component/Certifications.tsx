@@ -45,7 +45,8 @@ const Certifications = () => {
               <div className="w-8 h-[3px] bg-orange" />
             </div>
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-forest tracking-tighter">
-              <span className="font-serif italic text-orange">Certifications</span>
+              My <span className="font-serif italic text-orange"></span>
+              <span className="font-serif italic text-orange"> Certifications</span>
             </h2>
           </div>
 

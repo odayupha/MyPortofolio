@@ -1,44 +1,62 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Code, Cpu, Zap, Wrench, Users, MessageSquare, Clock, Target } from 'lucide-react';
-import gsap from 'gsap';
+
+type SkillLevel = 'Expert' | 'Advanced' | 'Intermediate' | 'Beginner';
+
+const levelConfig: Record<SkillLevel, { color: string; bg: string; border: string; dots: number }> = {
+  Expert: { color: 'text-forest', bg: 'bg-forest', border: 'border-forest', dots: 4 },
+  Advanced: { color: 'text-orange', bg: 'bg-orange', border: 'border-orange', dots: 3 },
+  Intermediate: { color: 'text-forest/70', bg: 'bg-forest/40', border: 'border-forest/40', dots: 2 },
+  Beginner: { color: 'text-forest/40', bg: 'bg-forest/20', border: 'border-forest/20', dots: 1 },
+};
+
+const LevelIndicator = ({ level }: { level: SkillLevel }) => {
+  const cfg = levelConfig[level];
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex gap-1">
+        {[1, 2, 3, 4].map((dot) => (
+          <div
+            key={dot}
+            className={`w-2 h-2 rounded-full transition-all ${dot <= cfg.dots ? cfg.bg : 'bg-forest/10'
+              }`}
+          />
+        ))}
+      </div>
+      <span className={`font-mono text-[10px] font-bold tracking-wider ${cfg.color}`}>
+        {level.toUpperCase()}
+      </span>
+    </div>
+  );
+};
 
 const Skills = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
-  const progressRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { setIsVisible(true); animateProgressBars(); } }); },
+      (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) setIsVisible(true); }); },
       { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  const animateProgressBars = () => {
-    progressRef.current.forEach((el, i) => {
-      if (el) {
-        const w = el.getAttribute('data-width') || '60';
-        gsap.fromTo(el, { width: '0%' }, { width: `${w}%`, duration: 1.5, delay: i * 0.1, ease: 'power4.out' });
-      }
-    });
-  };
-
-  const technicalSkills = [
-    { name: 'Arduino', level: 85, category: 'Microcontroller' },
-    { name: 'EAGLE', level: 50, category: 'PCB Design' },
-    { name: 'STM32', level: 35, category: 'Embedded Systems' },
-    { name: 'PID Control', level: 70, category: 'Control Systems' },
-    { name: 'IoT & SCADA', level: 65, category: 'Industrial Systems' },
-    { name: 'Visual Basic', level: 60, category: 'Programming' }
+  const technicalSkills: { name: string; level: SkillLevel; category: string }[] = [
+    { name: 'SCADA Systems & HMI Design', level: 'Expert', category: '' },
+    { name: 'Industrial IoT (IIoT) & Energy Digitalization', level: 'Intermediate', category: '' },
+    { name: 'Full-Stack Software Development', level: 'Expert', category: '' },
+    { name: 'PID Control', level: 'Advanced', category: '' },
+    { name: 'Database & API Management:', level: 'Advanced', category: '' },
+    { name: 'Workflow Automation & AI Integration', level: 'Intermediate', category: '' }
   ];
 
-  const softSkills = [
-    { name: 'Microsoft Office', level: 90, icon: Code },
-    { name: 'Teamwork', level: 90, icon: Users },
-    { name: 'Communication', level: 90, icon: MessageSquare },
-    { name: 'Time Management', level: 85, icon: Clock }
+  const softSkills: { name: string; level: SkillLevel; icon: any }[] = [
+    { name: 'Leadership', level: 'Expert', icon: Code },
+    { name: 'Teamwork', level: 'Expert', icon: Users },
+    { name: 'Communication', level: 'Expert', icon: MessageSquare },
+    { name: 'Time Management', level: 'Expert', icon: Clock }
   ];
 
   const interests = [
@@ -73,19 +91,16 @@ const Skills = () => {
                   <div className="flex-1 h-[2px] bg-forest/10" />
                   <span className="font-mono text-[9px] text-forest/30">[TECH]</span>
                 </div>
-                <div className="space-y-5">
+                <div className="space-y-4">
                   {technicalSkills.map((skill, i) => (
-                    <div key={i}>
-                      <div className="flex justify-between items-baseline mb-2">
-                        <div>
+                    <div key={i} className="group flex items-center justify-between py-3 px-4 bg-sand/50 border border-forest/10 hover:border-forest/30 transition-all duration-200 hover:bg-sand">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-baseline gap-2">
                           <span className="font-semibold text-forest text-sm">{skill.name}</span>
-                          <span className="font-mono text-[9px] text-forest/30 ml-2">// {skill.category}</span>
+                          <span className="font-mono text-[9px] text-forest/30">// {skill.category}</span>
                         </div>
-                        <span className="font-mono text-[10px] font-bold text-orange">{skill.level}%</span>
                       </div>
-                      <div className="h-[6px] bg-forest/10 border border-forest/20 relative overflow-hidden">
-                        <div className="absolute top-0 left-0 h-full bg-orange" ref={(el) => (progressRef.current[i] = el)} data-width={skill.level} />
-                      </div>
+                      <LevelIndicator level={skill.level} />
                     </div>
                   ))}
                 </div>
@@ -124,8 +139,8 @@ const Skills = () => {
                       <div className="w-8 h-8 bg-forest flex items-center justify-center mb-3 group-hover:bg-orange transition-colors">
                         <skill.icon size={16} className="text-sand" />
                       </div>
-                      <div className="font-semibold text-forest text-sm mb-1">{skill.name}</div>
-                      <div className="font-mono text-[11px] font-bold text-orange">{skill.level}%</div>
+                      <div className="font-semibold text-forest text-sm mb-2">{skill.name}</div>
+                      <LevelIndicator level={skill.level} />
                     </div>
                   ))}
                 </div>

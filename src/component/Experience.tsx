@@ -49,8 +49,8 @@ const Experience = () => {
     },
     {
       period: 'Jun 2024 - Jan 2025',
-      role: 'Staff Muda',
-      organization: 'Student Executive Board of Vocational School Diponegoro University (BEM SV UNDIP)',
+      role: 'Junior Staff',
+      organization: 'Student Executive Board of Vocational School Diponegoro University (BEM SV Undip)',
       location: 'Semarang, Central Java',
       type: 'Executive',
       description: 'As the Head of the Sekolah Mawapres Program within the Academic Division of the Student Executive Board of the Vocational School (BEM SV), responsible for leading and overseeing the entire program.',
@@ -60,7 +60,7 @@ const Experience = () => {
     {
       period: 'Jun 2025 - Aug 2025',
       role: 'Software Developer',
-      organization: 'PT. PERMALAT BERDIKARI JAYA',
+      organization: 'PT PERMALAT BERDIKARI JAYA',
       location: 'Semarang, Central Java - Internship',
       type: 'Internship',
       description: 'As a Software Engineer intern at PT. PERMALAT BERDIKARI JAYA, responsible for contributing to system and technology solution development projects. Focus was on UI/UX design, web development, and SCADA implementation.',
@@ -105,16 +105,14 @@ const Experience = () => {
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 {/* Main Row - Always Visible */}
-                <div className={`py-8 flex items-start gap-5 cursor-default transition-all duration-200 px-6 -mx-6 ${
-                  hoveredIndex === index ? 'bg-paper border-l-4 border-l-orange pl-8' : ''
-                }`}>
+                <div className={`py-8 flex items-start gap-5 cursor-default transition-all duration-200 px-6 -mx-6 ${hoveredIndex === index ? 'bg-paper border-l-4 border-l-orange pl-8' : ''
+                  }`}>
                   <span className="font-mono text-base font-bold text-forest/20 mt-1 w-8 flex-shrink-0">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <div className="flex-1 min-w-0">
-                    <h3 className={`text-2xl md:text-3xl font-bold transition-colors duration-200 ${
-                      hoveredIndex === index ? 'text-orange' : 'text-forest'
-                    }`}>{exp.role}</h3>
+                    <h3 className={`text-2xl md:text-3xl font-bold transition-colors duration-200 ${hoveredIndex === index ? 'text-orange' : 'text-forest'
+                      }`}>{exp.role}</h3>
                     <p className="text-forest/50 text-base font-medium">{exp.organization}</p>
                   </div>
                   <div className="flex items-center gap-3 flex-shrink-0">
@@ -124,9 +122,8 @@ const Experience = () => {
                 </div>
 
                 {/* Hover Content - Slides in */}
-                <div className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                  hoveredIndex === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
-                }`}>
+                <div className={`overflow-hidden transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${hoveredIndex === index ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+                  }`}>
                   <div className="pb-8 pl-6 md:pl-[3.5rem]">
                     <div className="bg-paper border-2 border-forest shadow-hard-sm p-8">
                       <div className="grid lg:grid-cols-[250px,1fr] gap-8">

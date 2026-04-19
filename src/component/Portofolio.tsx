@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, X, Building2, Calendar } from 'lucide-react';
+import { ArrowRight, X, Building2, Calendar, ExternalLink } from 'lucide-react';
 
 interface Project {
   title: string;
@@ -16,6 +16,7 @@ interface Project {
 const Portfolio = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -86,52 +87,128 @@ const Portfolio = () => {
               </h2>
             </div>
 
-            {/* Bento Grid */}
-            <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-4 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              {projects.map((project, index) => (
-                <div
-                  key={index}
-                  className={`group bg-paper border-2 border-sand/30 cursor-pointer transition-all duration-150 hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-none ${
-                    index === 0 ? 'md:col-span-2 lg:col-span-2 shadow-[6px_6px_0px_#FF5C00]' : 'shadow-[6px_6px_0px_#E6E2D3]'
-                  }`}
-                  onClick={() => setSelectedProject(project)}
-                >
-                  {/* Image */}
-                  <div className={`relative img-zoom-container bg-forest/5 overflow-hidden ${index === 0 ? 'h-64' : 'h-48'}`}>
-                    {project.imageUrl ? (
-                      <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover" />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center"><div className="text-6xl">{project.image}</div></div>
-                    )}
-                    <div className="absolute top-3 left-3">
-                      <span className="px-3 py-1.5 bg-forest text-sand font-mono text-[10px] font-bold tracking-wider border border-sand/20">
-                        {project.category.toUpperCase()}
-                      </span>
+            {/* Featured Project Showcase */}
+            <div className={`transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+
+              {/* Main Featured Area */}
+              <div className="grid lg:grid-cols-[1fr,1.1fr] gap-0 bg-paper border-2 border-sand/30 shadow-[8px_8px_0px_#FF5C00] mb-6">
+                {/* Project Image */}
+                <div className="relative h-72 lg:h-auto lg:min-h-[420px] img-zoom-container overflow-hidden border-b-2 lg:border-b-0 lg:border-r-2 border-forest/10">
+                  {projects[activeIndex].imageUrl ? (
+                    <img
+                      src={projects[activeIndex].imageUrl}
+                      alt={projects[activeIndex].title}
+                      className="w-full h-full object-cover transition-all duration-700"
+                      key={activeIndex}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-sand">
+                      <div className="text-8xl">{projects[activeIndex].image}</div>
                     </div>
-                    <div className="absolute bottom-3 right-3 font-mono text-[9px] text-forest/60 bg-paper/90 px-2 py-1">
-                      PRJ_{String(index + 1).padStart(2, '0')}
+                  )}
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1.5 bg-forest text-sand font-mono text-[10px] font-bold tracking-wider border border-sand/20">
+                      {projects[activeIndex].category.toUpperCase()}
+                    </span>
+                  </div>
+                  {/* Project Number */}
+                  <div className="absolute bottom-4 left-4 font-mono text-[11px] text-sand/80 bg-forest/70 backdrop-blur-sm px-3 py-1.5 border border-sand/20">
+                    PRJ_{String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                  </div>
+                </div>
+
+                {/* Project Details */}
+                <div className="p-8 lg:p-10 flex flex-col justify-between">
+                  <div>
+                    {/* Meta Info */}
+                    <div className="flex items-center gap-4 mb-5">
+                      <div className="flex items-center gap-2 text-forest/40 font-mono text-[10px]">
+                        <Building2 size={12} className="text-orange" />
+                        <span>{projects[activeIndex].company}</span>
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-extrabold text-forest tracking-tight mb-4 leading-tight">
+                      {projects[activeIndex].title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-forest/55 text-sm md:text-base leading-relaxed mb-6 line-clamp-4">
+                      {projects[activeIndex].shortDesc}
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="mb-6">
+                      <div className="font-mono text-[9px] text-forest/30 tracking-[0.15em] mb-3">TECH STACK</div>
+                      <div className="flex flex-wrap gap-2">
+                        {projects[activeIndex].tech.map((tech, i) => (
+                          <span key={i} className="px-3 py-1 bg-sand border border-forest/15 text-forest/60 font-mono text-[10px] font-bold tracking-wider">
+                            {tech.toUpperCase()}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Period */}
+                    <div className="flex items-center gap-2 text-forest/35 font-mono text-[10px] mb-8">
+                      <Calendar size={12} />
+                      <span>{projects[activeIndex].period}</span>
                     </div>
                   </div>
 
-                  {/* Info */}
-                  <div className="p-5 border-t-2 border-forest/10">
-                    <h3 className="text-lg font-bold text-forest mb-2 group-hover:text-orange transition-colors">{project.title}</h3>
-                    <p className="text-forest/50 text-sm leading-relaxed mb-4 line-clamp-2">{project.shortDesc}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.tech.slice(0, 3).map((tech, i) => (
-                        <span key={i} className="px-2 py-0.5 border border-forest/20 text-forest/50 font-mono text-[10px] font-bold">{tech.toUpperCase()}</span>
-                      ))}
-                      {project.tech.length > 3 && (
-                        <span className="px-2 py-0.5 border border-forest/20 text-forest/50 font-mono text-[10px] font-bold">+{project.tech.length - 3}</span>
-                      )}
-                    </div>
-                    <div className="arrow-hover flex items-center gap-2 text-forest/40 group-hover:text-orange text-sm font-bold transition-colors">
-                      <span>VIEW PROJECT</span>
-                      <ArrowRight size={14} className="arrow-icon" />
-                    </div>
-                  </div>
+                  {/* CTA */}
+                  <button
+                    onClick={() => setSelectedProject(projects[activeIndex])}
+                    className="arrow-hover w-full py-4 bg-orange text-sand font-bold text-sm border-2 border-forest flex items-center justify-center gap-2 shadow-hard-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[2px_2px_0px_#2D3A27] transition-all duration-150"
+                  >
+                    <span>VIEW FULL DETAILS</span>
+                    <ArrowRight size={16} className="arrow-icon" />
+                  </button>
                 </div>
-              ))}
+              </div>
+
+              {/* Project Selector Tabs */}
+              <div className="grid grid-cols-3 gap-0">
+                {projects.map((project, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveIndex(index)}
+                    className={`group relative text-left p-5 md:p-6 border-2 transition-all duration-200 ${
+                      activeIndex === index
+                        ? 'bg-paper border-sand/40 shadow-[4px_4px_0px_#FF5C00]'
+                        : 'bg-forest/60 border-sand/10 hover:bg-forest/40 hover:border-sand/25'
+                    } ${index < projects.length - 1 ? 'border-r-0' : ''}`}
+                  >
+                    {/* Active indicator line */}
+                    <div className={`absolute top-0 left-0 right-0 h-[3px] transition-all duration-300 ${
+                      activeIndex === index ? 'bg-orange' : 'bg-transparent'
+                    }`} />
+
+                    {/* Tab number */}
+                    <div className={`font-mono text-[10px] font-bold mb-2 transition-colors ${
+                      activeIndex === index ? 'text-orange' : 'text-sand/30'
+                    }`}>
+                      {String(index + 1).padStart(2, '0')}
+                    </div>
+
+                    {/* Tab title */}
+                    <h4 className={`font-bold text-sm md:text-base mb-1 transition-colors leading-tight ${
+                      activeIndex === index ? 'text-forest' : 'text-sand/70 group-hover:text-sand'
+                    }`}>
+                      {project.title}
+                    </h4>
+
+                    {/* Tab category */}
+                    <span className={`font-mono text-[9px] tracking-wider transition-colors ${
+                      activeIndex === index ? 'text-forest/40' : 'text-sand/25'
+                    }`}>
+                      {project.category.toUpperCase()}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -145,7 +222,7 @@ const Portfolio = () => {
             onClick={(e) => e.stopPropagation()}
             style={{ animation: 'slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }}
           >
-            <div className="relative h-56 img-zoom-container bg-forest/5 overflow-hidden border-b-2 border-forest">
+            <div className="relative h-56 md:h-72 img-zoom-container bg-forest/5 overflow-hidden border-b-2 border-forest">
               {selectedProject.imageUrl ? (
                 <img src={selectedProject.imageUrl} alt={selectedProject.title} className="w-full h-full object-cover" />
               ) : (

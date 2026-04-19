@@ -73,19 +73,7 @@ const About = () => {
             </div>
           </div>
 
-          {/* Key Stats */}
-          <div className={`grid md:grid-cols-3 gap-0 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            {[
-              { value: '7+', label: 'Key Projects' },
-              { value: '5+', label: 'Professional Experience' },
-              { value: '10+', label: 'Technical Skills' }
-            ].map((stat, index) => (
-              <div key={index} className={`bg-paper border-2 border-forest p-8 text-center ${index < 2 ? 'border-r-0' : ''} card-press`}>
-                <div className="text-4xl md:text-5xl font-extrabold text-forest tracking-tighter mb-2">{stat.value}</div>
-                <p className="text-forest/50 font-medium text-sm">{stat.label}</p>
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>
